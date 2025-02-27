@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MARVEL - DC</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        @font-face {
+            font-family: 'Marvel';
+            src: url('MarvelRegular-Dj83.ttf') format('truetype');
+        }
+
+        body {
+            font-family: 'MarvelRegular-Dj83';
+            background-color: #e9d8a6;
+        }
+
+        .header-background {
+            background: url('https://wallpapers.com/images/hd/marvel-d-c-superheroes-banner-arfzdz9thvvzrhe6.jpg') no-repeat center center/cover;
+            position:relative;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: black;
+            font-size: 4rem;
+            font-weight: bold;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.7);
+        }
+        
+        .letra{
+            position: absolute;
+            font-size: 4rem;
+            font-weight: bold;
+            color: black;
+            text-shadow: 2px 2px 10px rgba(255, 255, 255, 0.7);
+        }
+        
+        .letra-1 { top: 12vh; left: 4vw; }
+        .letra-2 { top: 15.5vh; left: 14vw; }
+        .letra-3 { top: 19vh; left: 23.5vw; }
+        .letra-4 { top: 15.5vh; left: 33vw; }
+        .letra-5 { top: 12vh; left: 42.5vw; }
+        .letra-6 { top: 9.5vh; left: 54vw; }
+        .letra-7 { top: 6vh; left: 63.2vw; }
+        .letra-8 { top: 8.5vh; left: 73vw; }
+        .letra-9 { top: 11.5vh; left: 82.5vw; }
+
+        .starwars-link {
+            background: url('https://sothebys-md.brightspotcdn.com/29/7a/2c5264014e20b45eeebea0ce6b11/19376517-star-wars-online-1440x330-02.jpg') no-repeat center center/cover;
+            height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: transform 0.3s ease-in-out;
+            text-align: center;
+        }
+        .starwars-link img{
+            background-size: cover;
+            width: 100%;
+            height: 100%;
+            
+        }
+
+        .starwars-link span {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100%;
+        }
+
+        .starwars-link:hover {
+            transform: scale(1.05);
+        }
+
+        .card {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 1);
+        }
+
+        .card img {
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            background: #0a9396;
+            padding: 20px;
+        }
+
+        
+        h1 {
+            font-weight: bold;
+        }
+
+        h2 {
+            color: #001219;
+            font-weight: bold;
+            font-size: 4em;
+        }
+
+        #heroImage {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+        .btn{
+            background-color: #ae2012;
+        }
+        .btn:hover{
+            background-color: #001219;
+            transition: 1s;
+        }
+    </style>
+</head>
+
+<body>
+
+  
+
+    <div class="text-center my-4">
+        <a href="starwars.html" class="starwars-link d-block"></a>
+    </div>
+
+   <header class="header-background">
+    <div class="letra letra-1">M</div>
+    <div class="letra letra-2">A</div>
+    <div class="letra letra-3">R</div>
+    <div class="letra letra-4">V</div>
+    <div class="letra letra-5">E</div>
+    <div class="letra letra-6">L</div>
+    <div class="letra letra-7">&</div>
+    <div class="letra letra-8">D</div>
+    <div class="letra letra-9">C</div>
+</header>
+
+    
+
+    <section class="container my-5">
+        <h2 class="text-center border-bottom pb-2">MARVEL</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="marvel-heroes">
+        </div>
+    </section>
+
+    <section class="container my-5">
+        <h2 class="text-center border-bottom pb-2">DC</h2>
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="dc-heroes">
+        </div>
+    </section>
+
+    <div class="modal fade" id="heroModal" tabindex="-1" aria-labelledby="heroModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="heroModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img id="heroImage" class="img-fluid mb-3" src="" alt="">
+                    <p id="heroDescription"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        fetch('super.json')
+            .then(response => response.json())
+            .then(data => {
+                const marvelContainer = document.getElementById('marvel-heroes');
+                const dcContainer = document.getElementById('dc-heroes');
+
+                data.forEach(hero => {
+                    const heroCard = document.createElement('div');
+                    heroCard.classList.add('col');
+                    heroCard.innerHTML = `
+                        <div class="card  border-dark mb-3">
+                            <img src="${hero.imagen1}" class="card-img-top" alt="${hero.nombre}">
+                            <div class="card-body text-center">
+                                <h5 class="card-title">${hero.nombre}</h5>
+                                <p class="card-text">Precio: $${hero.precio.toFixed(2)}</p>
+                                <button class="btn btn-primary" onclick="showHeroDetails('${hero.nombre}', '${hero.imagen2}', '${hero.resumen}')">+ Info</button>
+                            </div>
+                        </div>
+                    `;
+
+                    if (hero.grupo === 'marvel') {
+                        marvelContainer.appendChild(heroCard);
+                    } else if (hero.grupo === 'dc') {
+                        dcContainer.appendChild(heroCard);
+                    }
+                });
+            })
+            .catch(error => console.error('Error al cargar el archivo JSON:', error));
+
+        function showHeroDetails(nombre, imagen2, resumen) {
+            document.getElementById('heroModalLabel').innerText = nombre;
+            document.getElementById('heroImage').src = imagen2;
+            document.getElementById('heroImage').alt = nombre;
+            document.getElementById('heroDescription').innerText = resumen;
+
+            var heroModal = new bootstrap.Modal(document.getElementById('heroModal'));
+            heroModal.show();
+        }
+    </script>
+</body>
+
+</html>

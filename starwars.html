@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Star Wars</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: url('https://4kwallpapers.com/images/wallpapers/the-mandalorian-tv-series-5k-3440x1440-934.jpg') no-repeat center center fixed;
+            background-size: cover;
+            
+            
+        }
+        
+        .card {
+            background-color: #303030;
+            color: #e9d8a6;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease-in-out;
+            opacity: 80%;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 4px 20px rgba(255, 255, 255, 0.2);
+        }
+        .btn-primary {
+            background: #94d2bd;
+            border: none;
+            color: black;
+        }
+        .btn-primary:hover {
+            background: #e9d8a6;
+            color: black;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="header-background text-center">
+    </header>
+
+    <div class="text-center my-4">
+        <button class="btn btn-primary btn-lg" onclick="fetchData('people')">Ver Personajes</button>
+        <button class="btn btn-primary btn-lg" onclick="fetchData('planets')">Ver Planetas</button>
+        <button class="btn btn-primary btn-lg" onclick="fetchData('vehicles')">Ver Vehículos</button>
+    </div>
+
+    <section class="container my-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4" id="data-container">
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        function fetchData(category) {
+            fetch(`https://swapi.dev/api/${category}/`)
+                .then(response => response.json())
+                .then(data => {
+                    const container = document.getElementById('data-container');
+                    container.innerHTML = '';
+                    
+                    data.results.slice(0, 10).forEach(item => {
+                        let details = '';
+                        
+                        if (category === 'people') {
+                            details = `
+                                <p>Género: ${item.gender}</p>
+                                <p>Altura: ${item.height} cm</p>
+                                <p>Peso: ${item.mass} kg</p>
+                                <p>Color de cabello: ${item.hair_color}</p>
+                                <p>Color de piel: ${item.skin_color}</p>
+                                <p>Color de ojos: ${item.eye_color}</p>
+                                <p>Año de nacimiento: ${item.birth_year}</p>
+                            `;
+                        } else if (category === 'planets') {
+                            details = `
+                                <p>Clima: ${item.climate}</p>
+                                <p>Población: ${item.population}</p>
+                                <p>Periodo de rotación: ${item.rotation_period} horas</p>
+                                <p>Periodo orbital: ${item.orbital_period} días</p>
+                                <p>Diámetro: ${item.diameter} km</p>
+                                <p>Gravedad: ${item.gravity}</p>
+                                <p>Terreno: ${item.terrain}</p>
+                                <p>Agua superficial: ${item.surface_water}%</p>
+                            `;
+                        } else if (category === 'vehicles') {
+                            details = `
+                                <p>Modelo: ${item.model}</p>
+                                <p>Fabricante: ${item.manufacturer}</p>
+                                <p>Clase de vehículo: ${item.vehicle_class}</p>
+                                <p>Costo: ${item.cost_in_credits} créditos</p>
+                                <p>Longitud: ${item.length} m</p>
+                                <p>Velocidad máxima: ${item.max_atmosphering_speed} km/h</p>
+                                <p>Tripulación: ${item.crew}</p>
+                                <p>Pasajeros: ${item.passengers}</p>
+                                <p>Capacidad de carga: ${item.cargo_capacity} kg</p>
+                                <p>Consumo: ${item.consumables}</p>
+                            `;
+                        }
+
+                        const card = `
+                            <div class="col">
+                                <div class="card p-3 text-center">
+                                    <h5 class="card-title">${item.name}</h5>
+                                    ${details}
+                                </div>
+                            </div>
+                        `;
+
+                        container.innerHTML += card;
+                    });
+                })
+                .catch(error => console.error('Error al cargar los datos:', error));
+        }
+    </script>
+</body>
+
+</html>
